@@ -1,0 +1,52 @@
+<!DOCTYPE html>{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Инфляция в России</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    {% block content %}
+      <div class="row">
+        <h1 class="col s12">Инфляция в России</h1>
+        <div class="col s12 m8">
+          <table>
+            <tr>
+              {% for i in table_t %}
+                <th>{{i}}</th>
+              {% endfor %}
+            </tr>
+            {% for items in table_data %}
+              <tr>
+                {% for item in items %}
+                  {% if forloop.first %}
+                    {% firstof "" as st_color %}
+                  {% elif forloop.last %}
+                    {% firstof "#C0C0C0" as st_color %}
+                  {% elif item >= 5 %}
+                    {% firstof "#FF0000" as st_color %}
+                  {% elif item >= 3 %}
+                    {% firstof "#FA8072" as st_color %}
+                  {% elif item >= 1 %}
+                    {% firstof "#FFC0CB" as st_color %}
+                  {% elif item < 0 %}
+                    {% firstof "#008000" as st_color %}
+                  {% else %}
+                    {% firstof "" as set_color %}
+                  {% endif %}
+                  <td style="background-color: {{st_color}}">{{item}}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    {% endblock %}
+  </body>
+</html>
